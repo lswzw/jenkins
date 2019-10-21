@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 系统管理-插件管理-安装kubernetes 插件
 
 系统管理-系统设置-新增一个云
@@ -83,3 +84,6 @@ Sleeping for 1 min 0 sec
 [Pipeline] // podTemplate
 [Pipeline] End of Pipeline
 Finished: SUCCESS
+=======
+# jenkins in k8s yml
+>>>>>>> 6be8023fc7242fd653aa4f9a81217f3c5ce61fb3
