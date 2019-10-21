@@ -1,9 +1,10 @@
 ---
 apiVersion: apps/v1beta1
 kind: StatefulSet
+#kind: Deployment
 metadata:
   name: jenkins
-  namespace: kube-ops
+  namespace: jenkins
   labels:
     name: jenkins
 spec:
@@ -14,7 +15,7 @@ spec:
   template:
     metadata:
       name: jenkins
-      namespace: kube-ops
+      namespace: jenkins
       labels:
         name: jenkins
     spec:
@@ -67,7 +68,7 @@ spec:
   volumeClaimTemplates:
     - metadata:
         name: jenkins-home
-        namespace: kube-ops
+        namespace: jenkins
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
