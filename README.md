@@ -1,4 +1,24 @@
-<<<<<<< HEAD
+nfs pv
+yum install nfs-utils
+
+# systemctl start nfs
+# systemctl enable nfs
+
+# mkdir -p /opt/nfs/jenkins-data
+# vim /etc/exports
+/opt/nfs/jenkins-data 10.20.3.0/24(rw,all_squash)
+ip 的意思是哪些ip可以访问。 可以用 * 代替。
+
+chown -R nfsnobody. /opt/nfs/jenkins-data/
+systemctl reload nfs
+
+{test in node}
+# showmount -e NFS_IP
+
+pv.yml
+ip 是 nfs服务器ip
+
+
 系统管理-插件管理-安装kubernetes 插件
 
 系统管理-系统设置-新增一个云
