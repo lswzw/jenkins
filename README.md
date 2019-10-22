@@ -1,6 +1,4 @@
 
-系统管理-插件管理-安装kubernetes 插件
-
 系统管理-系统设置-新增一个云
 名称 kubernetes
 Jenkins 地址  {http://jenkins services ip :8080}
