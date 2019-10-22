@@ -1,0 +1,39 @@
+#NFS
+#yum install nfs-utils && systemctl enable nfs && systemctl start nfs
+
+#vi /etc/exports
+#/opt/nfs/jenkins-data 10.20.3.0/16(rw,all_squash)
+
+#chown -R nfsnobody. /opt/nfs/jenkins-data/ && systemctl reload nfs
+
+#{test in node}
+#showmount -e NFS_IP
+
+#PV
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jenkins
+  namespace: jenkins
+spec:
+  nfs:
+    path: /opt/nfs/jenkins-data
+    server: 192.168.6.188
+  accessModes: ["ReadWriteOnce"]
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 10Gi
+
+#PVC
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-home
+  namespace: jenkins
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 10Gi

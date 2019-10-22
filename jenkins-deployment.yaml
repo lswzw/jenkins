@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins
+  namespace: jenkins
+  labels:
+    app: jenkins
+spec:
+  selector:
+    matchLabels:
+      app: jenkins
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      serviceAccountName: jenkins
+      containers:
+      - name: jenkins
+        image: 192.168.6.189/jenkins/jenkins:lts
+        imagePullPolicy: IfNotPresent
+        securityContext:                     
+          runAsUser: 0       #设置以ROOT用户运行容器
+          privileged: true   #拥有特权
+        ports:
+        - name: http
+          containerPort: 8080
+        - name: jnlp
+          containerPort: 50000
+        resources:
+          limits:
+            memory: 4Gi
+            cpu: 4
+          requests:
+            memory: 4Gi
+            cpu: 4
+        env:
+        - name: LIMITS_MEMORY
+          valueFrom:
+            resourceFieldRef:
+              resource: limits.memory
+              divisor: 1Mi
+        - name: "JAVA_OPTS"  #设置变量，指定时区和 jenkins slave 执行者设置
+          value: " 
+                   -Xmx$(LIMITS_MEMORY)m 
+                   -XshowSettings:vm 
+                   -Dhudson.slaves.NodeProvisioner.initialDelay=0
+                   -Dhudson.slaves.NodeProvisioner.MARGIN=50
+                   -Dhudson.slaves.NodeProvisioner.MARGIN0=0.85
+                   -Duser.timezone=Asia/Shanghai
+                 "    
+        volumeMounts: 
+        - name: jenkins-home
+          mountPath: /var/jenkins_home
+      volumes:
+      - name: jenkins-home
+        persistentVolumeClaim:
+          claimName: jenkins-home

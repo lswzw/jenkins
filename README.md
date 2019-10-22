@@ -1,17 +1,17 @@
-<<<<<<< HEAD
+
 系统管理-插件管理-安装kubernetes 插件
 
 系统管理-系统设置-新增一个云
 名称 kubernetes
-Jenkins 地址  {http://jenkinsIP:30030}
+Jenkins 地址  {http://jenkins services ip :8080}
 
-系统管理-全局安全配置-代理-指定端口：改为 30033
+系统管理-全局安全配置-代理-指定端口
 
 
 
 test Pipeline script
 
-
+```
 podTemplate(label: 'mypod', cloud: 'kubernetes')
 {
     node ('mypod') {
@@ -21,8 +21,11 @@ podTemplate(label: 'mypod', cloud: 'kubernetes')
         }
     }
 }
+```
 
-正确输出为：
+
+#正确输出为：
+```
 Started by user admin
 Running in Durability level: MAX_SURVIVABILITY
 [Pipeline] Start of Pipeline
@@ -85,5 +88,4 @@ Sleeping for 1 min 0 sec
 [Pipeline] End of Pipeline
 Finished: SUCCESS
 =======
-# jenkins in k8s yml
->>>>>>> 6be8023fc7242fd653aa4f9a81217f3c5ce61fb3
+```
